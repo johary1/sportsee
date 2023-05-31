@@ -8,17 +8,12 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { USER_ACTIVITY, USER_AVERAGE_SESSIONS } from "../data/data";
+import { UserActivity, UserAverageSessions } from "../services/apiService";
 
-const BarChartComponent = () => {
+const BarChartComponent = ({ userActivity, userAverageSessions }) => {
   const getUserActivity = (userId) => {
-    const user = USER_ACTIVITY.find((data) => data.userId === userId);
-    const userAverageSessions = USER_AVERAGE_SESSIONS.find(
-      (data) => data.userId === userId
-    );
-
-    if (user && userAverageSessions) {
-      return user.sessions.map((session, index) => ({
+    if (userActivity && userAverageSessions) {
+      return userActivity.sessions.map((session, index) => ({
         day: `${userAverageSessions.sessions[index].day}`,
         poids: session.kilogram,
         calories: session.calories,
