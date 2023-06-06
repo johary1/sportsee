@@ -1,8 +1,8 @@
 import React from "react";
-import { Container, Text } from "../customizeComponents/sessionsToolTypeStyle";
+import { Container, Text } from "../customizeComponents/sessionsDurationStyle";
 import PropTypes from "prop-types";
 
-export default function SessionsToolType({ active, payload }) {
+export default function SessionsDuration({ active, payload }) {
   if (active) {
     return (
       <Container>
@@ -13,7 +13,7 @@ export default function SessionsToolType({ active, payload }) {
   return null;
 }
 
-SessionsToolType.propTypes = {
+SessionsDuration.propTypes = {
   active: PropTypes.bool,
   payload: PropTypes.array,
 };

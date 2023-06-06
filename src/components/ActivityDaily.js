@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Text } from "../customizeComponents/activityToolTypeStyle";
+import { Container, Text } from "../customizeComponents/activityDailyStyle";
 import PropTypes from "prop-types";
 
 /** create a custom tooltype for the user activity barChart
@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
  * @return {JSX}
  */
 
-export default function ActivityToolType({ active, payload }) {
+export default function ActivityDaily({ active, payload }) {
   if (active) {
     return (
       <Container>
@@ -20,7 +20,7 @@ export default function ActivityToolType({ active, payload }) {
   return null;
 }
 
-ActivityToolType.propTypes = {
+ActivityDaily.propTypes = {
   active: PropTypes.bool,
   payload: PropTypes.array,
 };

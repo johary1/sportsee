@@ -16,4 +16,5 @@
   font-size: 15px;
   padding: 29px 34px 0 34px;
   color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
 }

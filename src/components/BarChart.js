@@ -20,7 +20,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import ActivityToolType from "./ActivityToolType";
+import ActivityDaily from "./ActivityDaily";
 
 /**
  * Render a BarChart with user activity Data
@@ -89,7 +89,7 @@ export default function BarCharts() {
             domain={["dataMin - 20", "dataMax + 10"]}
             hide={true}
           />
-          <Tooltip content={<ActivityToolType />} />
+          <Tooltip content={<ActivityDaily />} />
           <Bar
             yAxisId="kilogram"
             dataKey="kilogram"

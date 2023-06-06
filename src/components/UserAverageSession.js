@@ -13,7 +13,7 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-import SessionsToolType from "./SessionsToolType.js";
+import SessionsDuration from "./SessionsDuration.js";
 
 /**
  * Render a LineChart with user average sessions Data
@@ -56,6 +56,18 @@ export default function UserAverageSessions() {
 
   if (data.length === 0) return null;
 
+  const handleMouseMove = (e) => {
+    if (e.isTooltipActive === true && lineChartRef.current !== null) {
+      const div = lineChartRef.current.container;
+      const windowWidth = div.clientWidth;
+      const mouseXpercentage = Math.round(
+        (e.activeCoordinate.x / windowWidth) * 100
+      );
+      div.style.background = `linear-gradient(90deg, rgba(255,1,1) ${mouseXpercentage}%, rgba(175,0,0,1.5) ${mouseXpercentage}%, rgba(255,1,1) 100%)`;
+      div.style.borderRadius = "0.5rem";
+    }
+  };
+
   return (
     <Container>
       <Title>Durée moyenne des sessions</Title>
@@ -64,18 +76,7 @@ export default function UserAverageSessions() {
           ref={lineChartRef}
           data={data}
           strokeWidth={1}
-          onMouseMove={(e) => {
-            if (e.isTooltipActive === true) {
-              let div = lineChartRef.current.container;
-              let windowWidth = div.clientWidth;
-              let mouseXpercentage = Math.round(
-                (e.activeCoordinate.x / windowWidth) * 100
-              );
-
-              div.style.background = `linear-gradient(90deg, rgba(255,1,1) ${mouseXpercentage}%, rgba(175,0,0,1.5) ${mouseXpercentage}%, rgba(255,1,1) 100%)`;
-              div.style.borderRadius = "0.5rem";
-            }
-          }}
+          onMouseMove={handleMouseMove}
         >
           <XAxis
             type="category"
@@ -90,7 +91,7 @@ export default function UserAverageSessions() {
             domain={[0, "dataMax + 30"]}
             hide={true}
           />
-          <Tooltip content={<SessionsToolType />} />
+          <Tooltip content={<SessionsDuration />} />
           <Line
             type="monotone"
             dataKey="sessionLength"
