@@ -1,0 +1,26 @@
+.mainError {
+  margin: 10rem 20rem 20rem;
+  text-align: center;
+}
+
+.titleError {
+  color: red;
+  font-size: 10rem;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.link {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.paragraph {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 50px;
+}

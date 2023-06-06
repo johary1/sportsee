@@ -1,19 +1,21 @@
 import React from "react";
-import BarChartComponent from "./components/BarChartComponent";
-import RadialBarChartComponent from "./components/RadialBarChartComponent";
-import LineChartComponent from "./components/LineChartComponent";
-import RadarChartComponent from "./components/RadarChartComponent";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Header from "./components/Header";
+import SideBar from "./components/SideBar";
+import Home from "./pages/Home";
+import Error from "./pages/Error";
+import User from "./pages/User";
 
-const App = () => {
+export default function App() {
   return (
-    <div>
-      <h1>SPORTSEE</h1>
-      <BarChartComponent />
-      <LineChartComponent />
-      <RadarChartComponent />
-      <RadialBarChartComponent />
-    </div>
+    <BrowserRouter>
+      <Header />
+      <SideBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/user/:id" element={<User />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
-
-export default App;
+}
