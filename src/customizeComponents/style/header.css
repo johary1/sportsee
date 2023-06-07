@@ -1,7 +1,7 @@
 .headHeader {
   position: relative;
   display: flex;
-  width: 100%;
+  min-width: 1200px;
   height: 91px;
   background: #020203;
   padding: 0 87px 0 29px;
@@ -15,9 +15,8 @@
 }
 
 .navHeader {
-  width: 80%;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
@@ -25,4 +24,25 @@
   color: white;
   font-weight: 500;
   font-size: 24px;
+}
+
+@media (min-width: 1025px) {
+  .navHeader {
+    justify-content: space-around;
+  }
+  .link-header {
+    font-weight: 500;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navHeader {
+    margin: auto 50px auto 50px;
+  }
+  .link-header {
+    font-weight: 300;
+    font-size: 18px;
+    margin-left: 50px;
+  }
 }

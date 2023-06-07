@@ -1,7 +1,7 @@
 .main {
   display: grid;
   grid-template-columns: 118px auto;
-  margin: auto;
+  margin: auto auto 50px auto;
 }
 
 .containerMain {
@@ -16,14 +16,6 @@
   }
 }
 
-/*.content {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}*/
 @media (min-width: 1025px) {
   .content {
     display: grid;
@@ -58,36 +50,6 @@
   }
 }
 
-/*.content aside > div {
-  margin: 20px 5px;
-}*/
-
-/*
-.content aside {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 835px;
-  flex-direction: column;
-  height: 670px;
-  margin: auto;
-  margin-left: 2rem;
-}
-
-@media (max-width: 1280px) {
-  .content aside {
-    display: grid;
-    grid-template-columns: 3fr 3fr 2fr;
-    margin-left: 60px;
-    height: auto;
-  }
-}
-
-.content aside > div {
-  margin: 20px 5px;
-}
-*/
-
 @media (min-width: 1025px) {
   .bottom-chart {
     display: grid;
@@ -102,6 +64,6 @@
     margin: 50px auto 50px;
     display: flex;
     flex-direction: row;
-    gap: 2em;
+    gap: 0.8em;
   }
 }

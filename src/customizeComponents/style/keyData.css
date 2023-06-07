@@ -1,10 +1,21 @@
 .wrapperKey {
   display: flex;
   padding: 2em;
-  width: 258px;
   height: 124px;
   background: #fbfbfb;
   border-radius: 5px;
+}
+
+@media (min-width: 1025px) {
+  .wrapperKey {
+    width: 258px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrapperKey {
+    width: 220px;
+  }
 }
 
 .infos {

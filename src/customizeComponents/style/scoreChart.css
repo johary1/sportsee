@@ -1,9 +1,21 @@
 .containerScore {
   position: relative;
-  width: 258px;
-  height: 263px;
   background: #fbfbfb;
   border-radius: 5px;
+}
+
+@media (min-width: 1025px) {
+  .containerScore {
+    width: 258px;
+    height: 263px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .containerScore {
+    width: 225px;
+    height: 235px;
+  }
 }
 
 .titleScore {

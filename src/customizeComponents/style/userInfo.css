@@ -13,3 +13,9 @@
 .nameUserInfo {
   color: #ff0000;
 }
+
+@media (max-width: 1024px) {
+  .titleUserInfo {
+    font-size: 36px;
+  }
+}
