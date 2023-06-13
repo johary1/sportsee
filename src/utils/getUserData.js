@@ -29,7 +29,7 @@ export const getUserData = async (type, id) => {
       data = await getUserInfos(id);
       break;
     default:
-      console.log(`Invalid type: ${type}`);
+      console.error(`Invalid type: ${type}`);
       break;
   }
   return data;

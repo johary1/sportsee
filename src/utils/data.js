@@ -304,7 +304,7 @@ export const getUserAverageSessions = async (id) => {
     const res = USER_AVERAGE_SESSIONS.find((el) => el.userId == id);
     return { data: res };
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -319,6 +319,6 @@ export const getUserPerformance = async (id) => {
     const res = USER_PERFORMANCE.find((el) => el.userId == id);
     return { data: res };
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };

@@ -7,10 +7,10 @@ export default function Home() {
     <Main>
       <Title>Choisissez un utilisateur</Title>
       <NavLink className="userName" to="user/12">
-        Karl
+        Karl DOVINEAU
       </NavLink>
       <NavLink className="userName" to="user/18">
-        Cecilia
+        Cecilia RATOREZ
       </NavLink>
     </Main>
   );
