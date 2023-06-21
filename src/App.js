@@ -14,11 +14,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user/:id" element={<User />} />
-        <Route path="/user/:id/activity" element={<User />} />
-        <Route path="/user/:id/average-sessions" element={<User />} />
-        <Route path="/user/:id/today-score" element={<User />} />
-        <Route path="/user/:id/activities" element={<User />} />
-        <Route path="/user/:id/key-data" element={<User />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

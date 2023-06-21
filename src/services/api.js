@@ -6,7 +6,7 @@ const baseURL = `http://localhost:3000/`;
  * @param {string} id - L'identifiant de l'utilisateur
  * @returns {Array} - Les activités de l'utilisateur
  */
-export const getUserActivity = async (id) => {
+export const getUserApiActivity = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
     const res = await fetch(`${baseURL}user/${id}/activity`);
@@ -25,7 +25,7 @@ export const getUserActivity = async (id) => {
  * @param {string} id - L'identifiant de l'utilisateur
  * @returns {object} - Les informations de l'utilisateur
  */
-export const getUserInfos = async (id) => {
+export const getUserApiInfos = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
     const res = await fetch(`${baseURL}user/${id}`);
@@ -43,7 +43,7 @@ export const getUserInfos = async (id) => {
  * @param {string} id - L'identifiant de l'utilisateur
  * @returns {object} - Les performances de l'utilisateur
  */
-export const getUserPerformance = async (id) => {
+export const getUserApiPerformance = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
     const res = await fetch(`${baseURL}user/${id}/performance`);
@@ -61,7 +61,7 @@ export const getUserPerformance = async (id) => {
  * @param {string} id - L'identifiant de l'utilisateur
  * @returns {object} - Les sessions moyennes de l'utilisateur
  */
-export const getUserAverageSessions = async (id) => {
+export const getUserApiAverageSessions = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
     const res = await fetch(`${baseURL}user/${id}/average-sessions`);

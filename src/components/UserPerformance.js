@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "../customizeComponents/userPerformanceStyle";
-import { getUserData } from "../utils/getUserData";
+import { getUserMockedData } from "../utils/getUserMockedData";
 import { useParams } from "react-router";
 import {
   Radar,
@@ -21,7 +21,7 @@ export default function UserPerformance() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserData("USER_PERFORMANCE", id);
+      const response = await getUserMockedData("USER_PERFORMANCE", id);
       if (!response.data) return alert("Data error");
 
       const userPerformance = new UserPerformanceModel(response.data);

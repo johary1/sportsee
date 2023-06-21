@@ -9,7 +9,7 @@ import {
   Info,
 } from "../customizeComponents/barChartStyle";
 import { useState, useEffect } from "react";
-import { getUserData } from "../utils/getUserData";
+import { getUserMockedData } from "../utils/getUserMockedData";
 import { useParams } from "react-router";
 import {
   BarChart,
@@ -32,7 +32,7 @@ export default function BarCharts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await getUserData("USER_ACTIVITY", id);
+      const request = await getUserMockedData("USER_ACTIVITY", id);
       if (!request) return alert("data error");
 
       setData(request.data.sessions);

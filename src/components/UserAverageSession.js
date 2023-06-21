@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "../customizeComponents/userPerformanceStyle";
-import { getUserData } from "../utils/getUserData";
+import { getUserMockedData } from "../utils/getUserMockedData";
 import { useParams } from "react-router";
 import {
   LineChart,
@@ -23,7 +23,7 @@ export default function UserAverageSession() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserData("USER_AVERAGE_SESSIONS", id);
+      const response = await getUserMockedData("USER_AVERAGE_SESSIONS", id);
       if (!response.data) return alert("Data error");
 
       const userAverageSession = new UserAverageSessionModel(response.data);
