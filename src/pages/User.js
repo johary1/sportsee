@@ -1,6 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { getUserData } from "../utils/getUserData";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import UserInfos from "../components/UserInfos";
@@ -20,27 +18,106 @@ import KeyData from "../components/KeyData";
 import UserAverageSessions from "../components/UserAverageSession";
 import UserPerformance from "../components/UserPerformance";
 
-/**Render the dashboard
- * @return {JSX}
- */
+import {
+  getUserActivity,
+  getUserAverageSessions,
+  getUserInfos,
+  getUserPerformance,
+} from "../services/api";
+
+import {
+  getUserData,
+  getUserActivity as getMockedUserActivity,
+  getUserAverageSessions as getMockedUserAverageSessions,
+  getUserInfos as getMockedUserInfos,
+  getUserPerformance as getMockedUserPerformance,
+} from "../utils/getUserData";
+
+const baseURL = `http://localhost:3000/`;
+
 export default function User() {
   const [data, setData] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [useMockData, setUseMockData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserData("USER_MAIN_DATA", id);
+      let response;
+
+      if (useMockData) {
+        response = await getUserDataFromMock(id);
+        console.log(response);
+      } else {
+        response = await getUserDataFromAPI(id);
+      }
+
       if (!response || !response.data) {
         navigate("/Error");
         return;
       }
+
       setData(response.data);
     };
+
     fetchData();
-  }, [id, navigate]);
+  }, [id, navigate, useMockData]);
+
+  const getUserDataFromAPI = async (id) => {
+    try {
+      const response = await Promise.all([
+        getUserActivity(id),
+        getUserAverageSessions(id),
+        getUserInfos(id),
+        getUserPerformance(id),
+      ]);
+
+      const [activity, averageSessions, userInfos, performance] = response;
+
+      return {
+        data: {
+          activity,
+          averageSessions,
+          userInfos,
+          performance,
+        },
+      };
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const getUserDataFromMock = async (id) => {
+    try {
+      const response = await Promise.all([
+        getMockedUserActivity(id),
+        getMockedUserAverageSessions(id),
+        getMockedUserInfos(id),
+        getMockedUserPerformance(id),
+      ]);
+
+      const [activity, averageSessions, userInfos, performance] = response;
+
+      return {
+        data: {
+          activity,
+          averageSessions,
+          userInfos,
+          performance,
+        },
+      };
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
 
   if (!data || data.length === 0) return null;
+
+  const toggleMockData = () => {
+    setUseMockData(!useMockData);
+  };
 
   return (
     <Main>
@@ -79,6 +156,9 @@ export default function User() {
               text="Lipides"
             />
           </aside>
+          <button onClick={toggleMockData}>
+            {useMockData ? "Switch to API Data" : "Switch to Mock Data"}
+          </button>
         </Content>
       </Container>
     </Main>
