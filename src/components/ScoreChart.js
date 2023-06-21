@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 export default function ScoreChart({ data }) {
   const score = [
     { value: data.todayScore || data.score },
-    { value: 1 - data.todayScore || data.score },
+    { value: 1 - (data.todayScore || data.score) },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function ScoreChart({ data }) {
               index === 0 ? (
                 <Cell key={`cell-${index}`} cornerRadius={10} fill="#ff0000" />
               ) : (
-                <Cell key={`cell-${entry}`} fill="#FBFBFB" />
+                <Cell key={`cell-${index}`} fill="#FBFBFB" />
               )
             )}
           </Pie>
@@ -42,7 +42,8 @@ export default function ScoreChart({ data }) {
       </ResponsiveContainer>
       <Text>
         <Score>
-          {score[0].value * 100}%<br />
+          {score[0].value * 100}%
+          <br />
         </Score>
         de votre
         <br /> objectif

@@ -9,42 +9,27 @@ import {
   PolarAngleAxis,
   ResponsiveContainer,
 } from "recharts";
+import UserPerformanceModel from "../datamodel/UserPerformanceModel";
 
 /**
  * Render a RadarChart with user performance data
  * @return {JSX}
  */
-
 export default function UserPerformance() {
   const [data, setData] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    const data = async () => {
-      const request = await getUserData("USER_PERFORMANCE", id);
-      if (!request) return alert("data error");
-      const formatData = request.data.data.map((data) => {
-        switch (data.kind) {
-          case 1:
-            return { ...data, kind: "Intensité" };
-          case 2:
-            return { ...data, kind: "Vitesse" };
-          case 3:
-            return { ...data, kind: "Force" };
-          case 4:
-            return { ...data, kind: "Endurance" };
-          case 5:
-            return { ...data, kind: "Energie" };
-          case 6:
-            return { ...data, kind: "Cardio" };
-          default:
-            return { ...data };
-        }
-      });
-      setData(formatData);
+    const fetchData = async () => {
+      const response = await getUserData("USER_PERFORMANCE", id);
+      if (!response.data) return alert("Data error");
+
+      const userPerformance = new UserPerformanceModel(response.data);
+      setData(userPerformance.performance);
     };
-    data();
+    fetchData();
   }, [id]);
+
   if (data.length === 0) return null;
 
   return (

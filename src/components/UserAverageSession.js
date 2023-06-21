@@ -1,104 +1,52 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Container,
-  Title,
-} from "../customizeComponents/userAverageSessionStyle";
+import React, { useState, useEffect } from "react";
+import { Container } from "../customizeComponents/userPerformanceStyle";
 import { getUserData } from "../utils/getUserData";
 import { useParams } from "react-router";
 import {
-  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
-import SessionsDuration from "./SessionsDuration.js";
+import UserAverageSessionModel from "../datamodel/UserAverageSessionModel";
 
 /**
- * Render a LineChart with user average sessions Data
+ * Render a LineChart with user average session data
  * @return {JSX}
  */
-
-export default function UserAverageSessions() {
+export default function UserAverageSession() {
   const [data, setData] = useState([]);
   const { id } = useParams();
-  const lineChartRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await getUserData("USER_AVERAGE_SESSIONS", id);
-      if (!request) return alert("data error");
-      const formatData = request.data.sessions.map((data) => {
-        switch (data.day) {
-          case 1:
-            return { ...data, day: "L" };
-          case 2:
-            return { ...data, day: "M" };
-          case 3:
-            return { ...data, day: "M" };
-          case 4:
-            return { ...data, day: "J" };
-          case 5:
-            return { ...data, day: "V" };
-          case 6:
-            return { ...data, day: "S" };
-          case 7:
-            return { ...data, day: "D" };
-          default:
-            return { ...data };
-        }
-      });
-      setData(formatData);
+      const response = await getUserData("USER_AVERAGE_SESSIONS", id);
+      if (!response.data) return alert("Data error");
+
+      const userAverageSession = new UserAverageSessionModel(response.data);
+      setData(userAverageSession.sessions);
     };
     fetchData();
   }, [id]);
 
   if (data.length === 0) return null;
 
-  const handleMouseMove = (e) => {
-    if (e.isTooltipActive === true && lineChartRef.current !== null) {
-      const div = lineChartRef.current.container;
-      const windowWidth = div.clientWidth;
-      const mouseXpercentage = Math.round(
-        (e.activeCoordinate.x / windowWidth) * 100
-      );
-      div.style.background = `linear-gradient(90deg, rgba(255,1,1) ${mouseXpercentage}%, rgba(175,0,0,1.5) ${mouseXpercentage}%, rgba(255,1,1) 100%)`;
-      div.style.borderRadius = "0.5rem";
-    }
-  };
-
   return (
     <Container>
-      <Title>Durée moyenne des sessions</Title>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          ref={lineChartRef}
-          data={data}
-          strokeWidth={1}
-          onMouseMove={handleMouseMove}
-        >
-          <XAxis
-            type="category"
-            dataKey="day"
-            tickLine={true}
-            stroke="red"
-            padding={{ right: 5, left: 5 }}
-            tick={{ fontSize: 13, stroke: "white", opacity: 0.5 }}
-          />
-          <YAxis
-            dataKey="sessionLength"
-            domain={[0, "dataMax + 30"]}
-            hide={true}
-          />
-          <Tooltip content={<SessionsDuration />} />
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
           <Line
             type="monotone"
             dataKey="sessionLength"
-            stroke="rgba(255, 255, 255, 0.7)"
-            strokeWidth={2}
-            dot={false}
-            activeDot={{ r: 4, strokeWidth: 4, stroke: "white" }}
+            stroke="#FF0101"
+            activeDot={{ r: 8 }}
           />
         </LineChart>
       </ResponsiveContainer>
