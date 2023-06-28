@@ -3,7 +3,7 @@ import {
   getUserApiAverageSessions,
   getUserApiInfos,
   getUserApiPerformance,
-} from "../services/api";
+} from "../services/apiData";
 
 export const getUserApiData = async (id) => {
   try {

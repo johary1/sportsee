@@ -23,14 +23,14 @@ import {
   getUserApiAverageSessions,
   getUserApiInfos,
   getUserApiPerformance,
-} from "../services/api";
+} from "../services/apiData";
 
 import {
   getUserMockedActivity,
   getUserMockedAverageSessions,
   getUserMockedInfos,
   getUserMockedPerformance,
-} from "../services/mock";
+} from "../services/mockedData";
 
 import { IS_MOCK } from "../constants";
 

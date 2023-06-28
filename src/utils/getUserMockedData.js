@@ -3,7 +3,7 @@ import {
   getUserMockedAverageSessions,
   getUserMockedInfos,
   getUserMockedPerformance,
-} from "../services/mock";
+} from "../services/mockedData";
 
 export const getUserMockedData = async (id) => {
   try {
