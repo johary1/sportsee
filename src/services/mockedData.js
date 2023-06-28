@@ -1,4 +1,7 @@
-const USER_MAIN_DATA = [
+/**
+ * Mocked data extracted from Backend endpoint /user/id
+ */
+export const USER_MAIN_DATA = [
   {
     id: 12,
     userInfos: {
@@ -31,7 +34,7 @@ const USER_MAIN_DATA = [
   },
 ];
 
-const USER_ACTIVITY = [
+export const USER_ACTIVITY = [
   {
     userId: 12,
     sessions: [
@@ -114,7 +117,7 @@ const USER_ACTIVITY = [
   },
 ];
 
-const USER_AVERAGE_SESSIONS = [
+export const USER_AVERAGE_SESSIONS = [
   {
     userId: 12,
     sessions: [
@@ -183,7 +186,7 @@ const USER_AVERAGE_SESSIONS = [
   },
 ];
 
-const USER_PERFORMANCE = [
+export const USER_PERFORMANCE = [
   {
     userId: 12,
     kind: {
@@ -259,53 +262,3 @@ const USER_PERFORMANCE = [
     ],
   },
 ];
-
-const getUserMockedActivity = async (id) => {
-  try {
-    const res = USER_ACTIVITY.find((el) => el.userId === id);
-    return { data: res };
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
-
-const getUserMockedAverageSessions = async (id) => {
-  try {
-    const res = USER_AVERAGE_SESSIONS.find((el) => el.userId === id);
-    return { data: res };
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
-
-const getUserMockedInfos = async (id) => {
-  try {
-    const res = USER_MAIN_DATA.find((el) => el.id === id);
-    if (!res) {
-      return { error: "User ID not found" };
-    }
-    return { data: res };
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
-
-const getUserMockedPerformance = async (id) => {
-  try {
-    const res = USER_PERFORMANCE.find((el) => el.userId === id);
-    return { data: res };
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
-
-export {
-  getUserMockedActivity,
-  getUserMockedAverageSessions,
-  getUserMockedInfos,
-  getUserMockedPerformance,
-};

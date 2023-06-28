@@ -14,6 +14,7 @@ export default function Home() {
       <NavLink className="userName" to="user/12">
         Karl DOVINEAU
       </NavLink>
+      <br></br>
       <NavLink className="userName" to="user/18">
         Cecilia RATOREZ
       </NavLink>

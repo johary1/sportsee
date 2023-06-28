@@ -1,159 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import SideBar from "../components/SideBar";
-import UserInfos from "../components/UserInfos";
-import {
-  Main,
-  Container,
-  Content,
-  BottomChart,
-} from "../customizeComponents/userStyle";
-import caloriesIcon from "../assets/calories-icon.svg";
-import proteinsIcon from "../assets/proteines-icon.svg";
-import glucidesIcon from "../assets/glucides-icon.svg";
-import lipidesIcon from "../assets/lipides-icon.svg";
-import BarCharts from "../components/BarChart";
-import ScoreChart from "../components/ScoreChart";
-import KeyData from "../components/KeyData";
-import UserAverageSessions from "../components/UserAverageSession";
-import UserPerformance from "../components/UserPerformance";
+import React from "react";
+import useFetchData from "../services/apiData";
+import { IS_MOCKED } from "../constants";
+import "../pages/style/DashboardStyle.css";
+import Error from "./Error";
+import { LoaderWrapper, Loader } from "../utils/Loader";
+import SideBar from "../components/SideBar/SideBar";
+import Title from "../components/Title/Title";
+import Nutrients from "../components/Nutrients/Nutrients";
+import SessionsChart from "../components/SessionChart/SessionChart";
+import PerformanceChart from "../components/PerformanceChart/PerformanceChart";
+import ScoreChart from "../components/ScoreChart/ScoreChart";
+import ActivityChart from "../components/ActivityChart/ActivityChart";
+import DataSource from "../components/DataSource/DataSource";
 
-import {
-  getUserApiActivity,
-  getUserApiAverageSessions,
-  getUserApiInfos,
-  getUserApiPerformance,
-} from "../services/apiData";
+import { useParams } from "react-router-dom";
 
-import {
-  getUserMockedActivity,
-  getUserMockedAverageSessions,
-  getUserMockedInfos,
-  getUserMockedPerformance,
-} from "../services/mockedData";
+/**
+ * UserBoard is a function that returns a React Fragment that contains all the charts to be displayed from user data.
+ * @returns A React Fragment. Main with aside and section containing all charts.
+ */
+export default function Dashboard() {
+  /* userId is extracted from the url */
+  const { userId } = useParams();
 
-import { IS_MOCK } from "../constants";
+  /* customized hook is called to retrieve user data */
+  const { userData, isLoading, error } = useFetchData(userId, IS_MOCKED);
 
-//const baseURL = `http://localhost:3000/`;
+  /* on error, display error panel */
+  if (error) {
+    return <Error />;
+  }
 
-export default function User() {
-  const [data, setData] = useState([]);
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let response;
-
-      if (IS_MOCK) {
-        response = await getUserMockedData(id);
-        console.log(response);
-      } else {
-        response = await getUserApiData(id);
-      }
-
-      if (!response || !response.data) {
-        navigate("/Error");
-        return;
-      }
-
-      setData(response.data);
-    };
-
-    fetchData();
-  }, [id, navigate]);
-
-  const getUserApiData = async (id) => {
-    try {
-      const response = await Promise.all([
-        getUserApiActivity(id),
-        getUserApiAverageSessions(id),
-        getUserApiInfos(id),
-        getUserApiPerformance(id),
-      ]);
-
-      const [activity, averageSessions, userInfos, performance] = response;
-
-      return {
-        data: {
-          activity,
-          averageSessions,
-          userInfos,
-          performance,
-        },
-      };
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
-
-  const getUserMockedData = async (id) => {
-    try {
-      const response = await Promise.all([
-        getUserMockedActivity(id),
-        getUserMockedAverageSessions(id),
-        getUserMockedInfos(id),
-        getUserMockedPerformance(id),
-      ]);
-
-      const [activity, averageSessions, userInfos, performance] = response;
-      console.log(response);
-      return {
-        data: {
-          activity,
-          averageSessions,
-          userInfos,
-          performance,
-        },
-      };
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
-
-  if (!data || data.length === 0) return null;
-
-  return (
-    <Main>
+  /* if data loading, display loader. If not, data is available to display the full page */
+  return isLoading ? (
+    <LoaderWrapper>
+      <Loader />
+    </LoaderWrapper>
+  ) : (
+    <main className="main">
       <SideBar />
-      <Container>
-        <UserInfos name={data.userInfos.name} />
-        <Content>
-          <section>
-            <BarCharts />
-            <BottomChart>
-              <UserAverageSessions />
-              <UserPerformance />
-              <ScoreChart />
-            </BottomChart>
-          </section>
-          <aside>
-            <KeyData
-              icon={caloriesIcon}
-              //info={`${data.keyData.calorieCount.toLocaleString()}kCal`}
-              text="Calories"
-            />
-
-            <KeyData
-              icon={proteinsIcon}
-              //info={`${data.keyData.proteinCount}g`}
-              text="Proteines"
-            />
-            <KeyData
-              icon={glucidesIcon}
-              // info={`${data.keyData.carbohydrateCount}g`}
-              text="Glucides"
-            />
-            <KeyData
-              icon={lipidesIcon}
-              //info={`${data.keyData.lipidCount}g`}
-              text="Lipides"
-            />
-          </aside>
-        </Content>
-      </Container>
-    </Main>
+      <section className="user-container">
+        <Title firstname={userData.getFirstName()} />
+        <div className="all-charts-container">
+          <div className="graphicals-container">
+            <ActivityChart activityData={userData.getActivityData()} />
+            <div className="squares-container">
+              <SessionsChart sessionsData={userData.getSessionsData()} />
+              <PerformanceChart
+                performanceData={userData.getPerformanceData()}
+              />
+              <ScoreChart scoreData={userData.getScoreData()} />
+            </div>
+          </div>
+          <Nutrients nutrientsData={userData.getNutrientData()} />
+        </div>
+      </section>
+      <DataSource />
+    </main>
   );
 }

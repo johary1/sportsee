@@ -1,0 +1,50 @@
+.main {
+  display: flex;
+  height: auto;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  /*justify-content: space-between;*/
+  width: 100%;
+  padding: 2rem 5rem;
+}
+
+@media screen and (max-width: 1370px) {
+  .user-container {
+    padding: 2rem 2rem;
+  }
+}
+
+.all-charts-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 1270px) {
+  .all-charts-container {
+    margin-bottom: 0px;
+  }
+}
+
+.graphicals-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.squares-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 835px;
+  height: auto;
+  margin-top: 40px;
+}
