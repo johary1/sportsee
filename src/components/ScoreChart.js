@@ -8,11 +8,7 @@ import {
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import PropTypes from "prop-types";
 
-/** create a PieChart with score value
- * @param  {object} {data}
- * @return {JSX}
- */
-export default function ScoreChart({ data }) {
+export default function ScoreChart({ data = {} }) {
   const score = [
     { value: data.todayScore || data.score },
     { value: 1 - (data.todayScore || data.score) },
@@ -30,13 +26,13 @@ export default function ScoreChart({ data }) {
             outerRadius={85}
             startAngle={90}
           >
-            {score.map((entry, index) =>
-              index === 0 ? (
-                <Cell key={`cell-${index}`} cornerRadius={10} fill="#ff0000" />
-              ) : (
-                <Cell key={`cell-${index}`} fill="#FBFBFB" />
-              )
-            )}
+            {score.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                cornerRadius={index === 0 ? 10 : 0}
+                fill={index === 0 ? "#ff0000" : "#FBFBFB"}
+              />
+            ))}
           </Pie>
         </PieChart>
       </ResponsiveContainer>

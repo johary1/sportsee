@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Wrapper,
   Head,
@@ -8,8 +8,6 @@ import {
   Legend,
   Info,
 } from "../customizeComponents/barChartStyle";
-import { useState, useEffect } from "react";
-import { getUserMockedData } from "../utils/getUserMockedData";
 import { useParams } from "react-router";
 import {
   BarChart,
@@ -21,6 +19,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import ActivityDaily from "./ActivityDaily";
+import UserActivityModel from "../datamodel/UserActivityModel";
+import { getUserApiData } from "../utils/getUserApiData";
+import { getUserMockedData } from "../utils/getUserMockedData";
+import { IS_MOCK } from "../constants";
 
 /**
  * Render a BarChart with user activity Data
@@ -32,17 +34,33 @@ export default function BarCharts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await getUserMockedData("USER_ACTIVITY", id);
-      if (!request) return alert("data error");
+      let request;
 
-      setData(request.data.sessions);
+      if (IS_MOCK) {
+        request = await getUserMockedData(id);
+      } else {
+        request = await getUserApiData(id);
+      }
+
+      if (!request) {
+        alert("Error fetching data");
+        return;
+      }
+
+      const userActivity = new UserActivityModel(request.data.activity);
+      setData(userActivity.initActivity);
     };
+
     fetchData();
   }, [id]);
-  if (data.length === 0) return null;
-  //format data.day
+
+  if (data.length === 0) {
+    return null;
+  }
+
+  // Format data.day
   for (let i = 0; i < data.length; i++) {
-    data[i].day = i + 1;
+    data[i].day = (i + 1).toString();
   }
 
   return (
@@ -75,7 +93,7 @@ export default function BarCharts() {
             dataKey="kilogram"
             type="number"
             domain={["dataMin - 2", "dataMax + 1"]}
-            tickCount="4"
+            tickCount={4}
             axisLine={false}
             orientation="right"
             tickLine={false}

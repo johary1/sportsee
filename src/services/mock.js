@@ -260,65 +260,52 @@ const USER_PERFORMANCE = [
   },
 ];
 
-/**
- * Get user infos
- *
- * @param {number} id User id
- * @returns {object} Response
- */
-export const getUserMockedInfos = async (id) => {
+const getUserMockedActivity = async (id) => {
   try {
-    const res = USER_MAIN_DATA.find((el) => el.id == id);
+    const res = USER_ACTIVITY.find((el) => el.userId === id);
+    return { data: res };
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
+const getUserMockedAverageSessions = async (id) => {
+  try {
+    const res = USER_AVERAGE_SESSIONS.find((el) => el.userId === id);
+    return { data: res };
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
+const getUserMockedInfos = async (id) => {
+  try {
+    const res = USER_MAIN_DATA.find((el) => el.id === id);
     if (!res) {
       return { error: "User ID not found" };
     }
     return { data: res };
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    return null;
   }
 };
 
-/**
- * Get user activity
- *
- * @param {number} id User id
- * @returns {object} Response
- */
-export const getUserMockedActivity = async (id) => {
+const getUserMockedPerformance = async (id) => {
   try {
-    const res = USER_ACTIVITY.find((el) => el.userId == id);
-    return { data: res };
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-/**
- * Get user average session
- *
- * @param {number} id User id
- * @returns {object} Response
- */
-export const getUserMockedAverageSessions = async (id) => {
-  try {
-    const res = USER_AVERAGE_SESSIONS.find((el) => el.userId == id);
+    const res = USER_PERFORMANCE.find((el) => el.userId === id);
     return { data: res };
   } catch (e) {
     console.error(e);
+    return null;
   }
 };
 
-/**
- * Get user performance
- *
- * @param {number} id User id
- * @returns {object} Response
- */
-export const getUserMockedPerformance = async (id) => {
-  try {
-    const res = USER_PERFORMANCE.find((el) => el.userId == id);
-    return { data: res };
-  } catch (e) {
-    console.error(e);
-  }
+export {
+  getUserMockedActivity,
+  getUserMockedAverageSessions,
+  getUserMockedInfos,
+  getUserMockedPerformance,
 };

@@ -9,9 +9,8 @@ const baseURL = `http://localhost:3000/`;
 export const getUserApiActivity = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
-    const res = await fetch(`${baseURL}user/${id}/activity`);
-    // Conversion de la réponse en JSON
-    const data = await res.json();
+    const data = await fetch(`${baseURL}user/${id}/activity`);
+
     // Renvoie les données reçues en réponse à la requête
     return data;
   } catch (e) {
@@ -28,9 +27,8 @@ export const getUserApiActivity = async (id) => {
 export const getUserApiInfos = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
-    const res = await fetch(`${baseURL}user/${id}`);
-    // Conversion de la réponse en JSON
-    const data = await res.json();
+    const data = await fetch(`${baseURL}user/${id}`);
+
     // Renvoie les données reçues en réponse à la requête
     return data;
   } catch (e) {
@@ -46,9 +44,8 @@ export const getUserApiInfos = async (id) => {
 export const getUserApiPerformance = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
-    const res = await fetch(`${baseURL}user/${id}/performance`);
-    // Conversion de la réponse en JSON
-    const data = await res.json();
+    const data = await fetch(`${baseURL}user/${id}/performance`);
+
     // Renvoie les données reçues en réponse à la requête
     return data;
   } catch (e) {
@@ -64,9 +61,8 @@ export const getUserApiPerformance = async (id) => {
 export const getUserApiAverageSessions = async (id) => {
   try {
     // Utilisation de la fonction fetch pour effectuer une requête GET à l'API
-    const res = await fetch(`${baseURL}user/${id}/average-sessions`);
-    // Conversion de la réponse en JSON
-    const data = await res.json();
+    const data = await fetch(`${baseURL}user/${id}/average-sessions`);
+
     // Renvoie les données reçues en réponse à la requête
     return data;
   } catch (e) {

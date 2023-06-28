@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "../customizeComponents/userPerformanceStyle";
 import { getUserMockedData } from "../utils/getUserMockedData";
+import { getUserApiData } from "../utils/getUserApiData";
 import { useParams } from "react-router";
 import {
   Radar,
@@ -10,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import UserPerformanceModel from "../datamodel/UserPerformanceModel";
-
+import { IS_MOCK } from "../constants";
 /**
  * Render a RadarChart with user performance data
  * @return {JSX}
@@ -21,10 +22,17 @@ export default function UserPerformance() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserMockedData("USER_PERFORMANCE", id);
-      if (!response.data) return alert("Data error");
+      let request;
 
-      const userPerformance = new UserPerformanceModel(response.data);
+      if (IS_MOCK) {
+        request = await getUserMockedData(id);
+        console.log(request);
+      } else {
+        request = await getUserApiData(id);
+      }
+      if (!request.data) return alert("Data error");
+
+      const userPerformance = new UserPerformanceModel(request.data);
       setData(userPerformance.performance);
     };
     fetchData();

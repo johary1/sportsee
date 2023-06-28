@@ -98,7 +98,7 @@ export default function User() {
       ]);
 
       const [activity, averageSessions, userInfos, performance] = response;
-
+      console.log(response);
       return {
         data: {
           activity,
@@ -119,36 +119,36 @@ export default function User() {
     <Main>
       <SideBar />
       <Container>
-        <UserInfos name={data.userInfos.firstName} />
+        <UserInfos name={data.userInfos.name} />
         <Content>
           <section>
             <BarCharts />
             <BottomChart>
               <UserAverageSessions />
               <UserPerformance />
-              <ScoreChart data={data} />
+              <ScoreChart />
             </BottomChart>
           </section>
           <aside>
             <KeyData
               icon={caloriesIcon}
-              info={`${data.keyData.calorieCount.toLocaleString()}kCal`}
+              //info={`${data.keyData.calorieCount.toLocaleString()}kCal`}
               text="Calories"
             />
 
             <KeyData
               icon={proteinsIcon}
-              info={`${data.keyData.proteinCount}g`}
+              //info={`${data.keyData.proteinCount}g`}
               text="Proteines"
             />
             <KeyData
               icon={glucidesIcon}
-              info={`${data.keyData.carbohydrateCount}g`}
+              // info={`${data.keyData.carbohydrateCount}g`}
               text="Glucides"
             />
             <KeyData
               icon={lipidesIcon}
-              info={`${data.keyData.lipidCount}g`}
+              //info={`${data.keyData.lipidCount}g`}
               text="Lipides"
             />
           </aside>
