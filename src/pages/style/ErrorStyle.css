@@ -1,0 +1,16 @@
+.errorPageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.linkBackHome {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
