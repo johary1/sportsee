@@ -1,4 +1,4 @@
-import { IS_MOCKED } from "../../constants";
+import { IS_MOCKED } from "../../config";
 import "./DataSource.css";
 
 /**

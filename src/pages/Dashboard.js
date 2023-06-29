@@ -1,6 +1,6 @@
 import React from "react";
 import useFetchData from "../services/apiData";
-import { IS_MOCKED } from "../constants";
+//import { IS_MOCKED } from "../constants";
 import "../pages/style/DashboardStyle.css";
 import Error from "./Error";
 import { LoaderWrapper, Loader } from "../utils/Loader";
@@ -24,7 +24,7 @@ export default function Dashboard() {
   const { userId } = useParams();
 
   /* customized hook is called to retrieve user data */
-  const { userData, isLoading, error } = useFetchData(userId, IS_MOCKED);
+  const { userData, isLoading, error } = useFetchData(userId);
 
   /* on error, display error panel */
   if (error) {

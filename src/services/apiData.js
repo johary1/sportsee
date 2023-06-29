@@ -7,7 +7,7 @@ import {
   USER_PERFORMANCE,
 } from "../services/mockedData";
 
-import { IS_MOCKED } from "../constants";
+import { IS_MOCKED } from "../config";
 
 /**
  * Récupère les données utilisateur à partir de l'API ou des données simulées
@@ -59,6 +59,7 @@ export function useFetchData(id) {
         !userPerformanceDataMocked
       ) {
         setError(true);
+        setLoading(false);
       } else {
         setUserData(
           new User(
@@ -79,16 +80,25 @@ export function useFetchData(id) {
       ];
 
       Promise.all(urls.map((url) => fetch(url)))
-        .then((res) => Promise.all(res.map((r) => r.json())))
+        .then((responses) =>
+          Promise.all(
+            responses.map((response) => {
+              if (!response.ok) {
+                throw new Error("API request failed");
+              }
+              return response.json();
+            })
+          )
+        )
         .then((mainData) => {
           if (isValidData(mainData)) {
             setUserData(new User(...mainData.map((data) => data.data)));
           } else {
-            setError(true);
+            throw new Error("Invalid data received");
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.error(error);
           setError(true);
         })
         .finally(() => setLoading(false));
