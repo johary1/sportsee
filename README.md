@@ -21,4 +21,4 @@ To launch the project, you need to run both the backend and the frontend servers
 
 - In one terminal, navigate to the `backend` folder and run `npm start` to start the backend server. It will listen on port 3000 by default.
 - In another terminal, navigate to the `frontend` folder and run `npm start` to start the frontend server. It will open a browser window on port 3001 by default.
-- You should see data fetched from the API or mock data. You can modify the bolean IS_MOCKED value to switch between data source either API or Mocked data
+- You should see data fetched from the API or mock data. You can modify the boolean IS_MOCKED value in config.js to switch between data source either API or Mocked data.
