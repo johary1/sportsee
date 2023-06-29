@@ -14,9 +14,9 @@ function Header() {
           <img className="logo" src={logo} alt="le logo" />
         </Link>
         <NavLink to="/">Accueil</NavLink>
-        <NavLink to="/">Profil</NavLink>
-        <NavLink to="/">Réglages</NavLink>
-        <NavLink to="/">Communauté</NavLink>
+        <NavLink to="#">Profil</NavLink>
+        <NavLink to="#">Réglage</NavLink>
+        <NavLink to="#">Communauté</NavLink>
       </nav>
     </header>
   );
